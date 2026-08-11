@@ -23,16 +23,26 @@ Taskbar Icon Splitter 会把不同网站的标签页整理到各自的 Edge 窗�
 ## 安装前请注意
 
 - 当前支持 Windows 11 x64 和 Microsoft Edge Stable。
-- 这是源码安装版本，需要 PowerShell 7、Node.js 20+、npm 和 .NET 8 SDK。
+- 扩展还需要一个 Windows Companion 才能修改任务栏图标。首次使用页会提供一键安装程序。
+- Companion 已包含所需运行时，普通用户不需要编译源码，也不需要安装 Node.js、.NET 或任何 SDK。
 - 扩展首次加载后默认暂停。只有点击“启用并整理”后，才会移动已经打开的普通网页标签。
 - 暂停扩展会恢复默认的 Edge 图标，但不会把已经拆开的窗口重新合并。
 - 按网站生成的任务栏按钮不能固定到任务栏。
 
 ## 安装
 
-### 1. 运行安装脚本
+### 从 Edge 加载项商店安装
 
-在仓库根目录打开 PowerShell 7，然后运行：
+1. 在 Microsoft Edge 加载项商店点击“获取”。
+2. 首次使用页会检测 Companion；如果尚未安装，点击“下载 Companion 安装程序”。
+3. 运行下载的 `TaskbarIconSplitter-Setup-x64.exe`。它按当前用户安装，不需要管理员权限。
+4. 回到首次使用页点击“重新检查”。看到“Native Host 已连接”后，再点击“启用并整理”。
+
+扩展不会在你确认前移动现有标签页。以后扩展由 Edge 更新；Companion 更新时，重新运行最新版安装程序即可。
+
+### 从源码安装（仅供开发和测试）
+
+源码构建需要 PowerShell 7、Node.js 20+、npm 和 .NET 8 SDK。在仓库根目录运行：
 
 ```powershell
 .\scripts\install.ps1
@@ -44,9 +54,7 @@ Taskbar Icon Splitter 会把不同网站的标签页整理到各自的 Edge 窗�
 %LOCALAPPDATA%\TaskbarIconSplitter
 ```
 
-安装不需要管理员权限。完成后请保留终端中显示的 `Unpacked extension path`。
-
-### 2. 加载 Edge 扩展
+完成后请保留终端中显示的 `Unpacked extension path`，然后：
 
 1. 在 Edge 地址栏打开 `edge://extensions`。
 2. 开启“开发人员模式”。
@@ -57,9 +65,7 @@ Taskbar Icon Splitter 会把不同网站的标签页整理到各自的 Edge 窗�
    C:\Users\<你的用户名>\AppData\Local\TaskbarIconSplitter\extension
    ```
 
-### 3. 确认可以使用
-
-首次加载会打开使用说明页。看到“Native Host 已连接”后，点击“启用并整理”；扩展会先说明将要移动哪些标签，不会在你确认前改变现有窗口。
+首次加载会打开使用说明页。看到“Native Host 已连接”后，点击“启用并整理”。
 
 ## 日常使用
 
@@ -82,15 +88,17 @@ Taskbar Icon Splitter 会把不同网站的标签页整理到各自的 Edge 窗�
 
 ### 显示“Native Host 未连接”
 
-在仓库根目录重新运行：
+从商店安装的用户请在首次使用页重新下载并运行最新版 Companion，然后点击“重新检查”。
+
+从源码安装的用户可以在仓库根目录重新运行：
 
 ```powershell
 .\scripts\install.ps1 -SkipBuild
 ```
 
-然后打开 `edge://extensions`，点击本扩展的“重新加载”。如果仍然失败，请移除旧的解压缩扩展，再重新选择 `%LOCALAPPDATA%\TaskbarIconSplitter\extension`。
+如果仍然失败，请完全退出再重新打开 Edge。
 
-### 安装时提示找不到 .NET 8 SDK
+### 源码安装时提示找不到 .NET 8 SDK
 
 先检查当前终端：
 
@@ -111,7 +119,9 @@ dotnet --list-sdks
 
 ## 更新
 
-获取新代码后，再次运行：
+Edge 会自动更新商店扩展。Companion 有新版本时，下载并重新运行最新版 `TaskbarIconSplitter-Setup-x64.exe`，原有设置和缓存会保留。
+
+从源码安装的用户获取新代码后，再次运行：
 
 ```powershell
 .\scripts\install.ps1
@@ -122,16 +132,16 @@ dotnet --list-sdks
 ## 卸载
 
 1. 在扩展弹窗中关闭“自动按域名拆分”。
-2. 完全退出 Edge。
-3. 在仓库根目录运行：
+2. 在 Windows“设置 → 应用 → 已安装的应用”中卸载 Taskbar Icon Splitter Companion。
+3. 在 `edge://extensions` 中移除 Taskbar Icon Splitter。
 
-   ```powershell
-   .\scripts\uninstall.ps1
-   ```
+从源码安装的用户也可以在完全退出 Edge 后运行：
 
-4. 回到 `edge://extensions`，移除 Taskbar Icon Splitter。
+```powershell
+.\scripts\uninstall.ps1
+```
 
-卸载脚本会删除当前用户的本地文件和 Native Messaging 注册，不会删除你的浏览数据。
+卸载 Companion 会删除 Native Messaging 注册、网站图标缓存和诊断日志，不会删除你的浏览数据。
 
 ## 开发
 
@@ -143,8 +153,17 @@ dotnet --list-sdks
 
 构建结果位于 `dist\extension` 和 `dist\native`。依赖已经还原时可以加 `-SkipRestore`；只想跳过测试时可以加 `-SkipTests`。
 
+生成 Edge 商店 ZIP 和无需 SDK 的 Companion 安装程序：
+
+```powershell
+.\scripts\build-release.ps1 -StoreExtensionId <Edge 商店扩展 ID>
+```
+
+正式发布步骤、签名要求和上传顺序见 [RELEASING.md](RELEASING.md)。
+
 主要目录：
 
 - `extension/`：Edge 扩展
 - `native/`：Windows Native Host 与测试
-- `scripts/`：构建、安装和卸载脚本
+- `installer/`：Companion 安装器定义
+- `scripts/`：构建、发布、安装和卸载脚本

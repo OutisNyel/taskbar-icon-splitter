@@ -1,7 +1,7 @@
 import type { PopupStatus } from "./protocol";
 
 const connection = document.querySelector<HTMLParagraphElement>("#connection")!;
-const installHelp = document.querySelector<HTMLParagraphElement>("#install-help")!;
+const installHelp = document.querySelector<HTMLDivElement>("#install-help")!;
 const retry = document.querySelector<HTMLButtonElement>("#retry")!;
 const consent = document.querySelector<HTMLInputElement>("#consent")!;
 const enable = document.querySelector<HTMLButtonElement>("#enable")!;
@@ -30,7 +30,9 @@ function updateEnableButton(): void {
 
 function render(status: PopupStatus): void {
   nativeConnected = status.nativeStatus === "connected";
-  installHelp.hidden = nativeConnected;
+  const disconnected = status.nativeStatus === "disconnected";
+  installHelp.hidden = !disconnected;
+  retry.hidden = !disconnected;
 
   if (nativeConnected) {
     connection.textContent = "Native Host 已连接";
@@ -61,6 +63,8 @@ async function refresh(): Promise<void> {
     render(await send<PopupStatus>({ type: "get_status" }));
   } catch (error) {
     nativeConnected = false;
+    installHelp.hidden = false;
+    retry.hidden = false;
     connection.textContent = "无法读取扩展状态";
     connection.className = "connection disconnected";
     message.textContent = error instanceof Error ? error.message : String(error);

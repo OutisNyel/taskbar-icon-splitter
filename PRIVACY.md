@@ -62,7 +62,7 @@ Taskbar Icon Splitter 由 Microsoft Edge 扩展和本机 Native Host 组成。�
 要删除数据：
 
 1. 从 `edge://extensions` 移除 Taskbar Icon Splitter，以删除 Edge 保存的扩展数据。
-2. 运行仓库中的 `scripts\uninstall.ps1`，以删除 Native Messaging 注册、本机图标缓存和日志。
+2. 在 Windows“设置 → 应用 → 已安装的应用”中卸载 Taskbar Icon Splitter Companion，以删除 Native Messaging 注册、本机图标缓存和日志。从源码安装的用户也可以运行仓库中的 `scripts\uninstall.ps1`。
 3. 也可以在完全退出 Edge 后手动删除 `%LOCALAPPDATA%\TaskbarIconSplitter`。
 
 ## 儿童隐私

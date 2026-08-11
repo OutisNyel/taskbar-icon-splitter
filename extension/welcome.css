@@ -118,6 +118,26 @@ ul {
   margin-top: 0;
 }
 
+.help p {
+  margin-top: 0;
+}
+
+.download {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  padding: 0 18px;
+  border-radius: 9px;
+  color: #fff;
+  background: #245da8;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.download:hover {
+  background: #1d4e8f;
+}
+
 .consent {
   display: flex;
   gap: 10px;
