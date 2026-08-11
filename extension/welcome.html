@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>开始使用 Taskbar Icon Splitter</title>
+    <link rel="stylesheet" href="welcome.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="icons/icon128.png" alt="" width="72" height="72">
+        <div>
+          <p class="eyebrow">Taskbar Icon Splitter</p>
+          <h1>让 Edge 按网站显示任务栏图标</h1>
+          <p class="lead">扩展目前保持暂停。完成下面两步后，再由你决定是否整理现有标签页。</p>
+        </div>
+      </header>
+
+      <section>
+        <span class="step">1</span>
+        <div>
+          <h2>确认本机组件已连接</h2>
+          <p>任务栏图标属于 Windows 系统功能，因此还需要安装 Taskbar Icon Splitter Companion。本机组件只接收当前扩展发出的窗口与图标请求。</p>
+          <p id="connection" class="connection">正在检查连接…</p>
+          <p id="install-help" class="help" hidden>请从本扩展商店详情页的“网站”链接下载并安装 Companion，然后回到这里重新检查。</p>
+          <button id="retry" class="secondary" type="button">重新检查</button>
+        </div>
+      </section>
+
+      <section>
+        <span class="step">2</span>
+        <div>
+          <h2>确认整理规则</h2>
+          <ul>
+            <li>同一网站的普通网页标签会移动到同一个 Edge 窗口。</li>
+            <li>置顶标签、InPrivate、Edge 内部页和非 HTTP(S) 页面不会移动。</li>
+            <li>暂停扩展会恢复默认图标，但不会重新合并已经拆开的窗口。</li>
+          </ul>
+          <label class="consent">
+            <input id="consent" type="checkbox">
+            <span>我知道启用后会立即整理当前打开的普通网页标签。</span>
+          </label>
+          <button id="enable" class="primary" type="button" disabled>启用并整理</button>
+          <p id="message" class="message" role="status"></p>
+        </div>
+      </section>
+
+      <footer>无需账号，不包含广告，也不会把浏览记录上传给开发者。</footer>
+    </main>
+    <script type="module" src="welcome.js"></script>
+  </body>
+</html>

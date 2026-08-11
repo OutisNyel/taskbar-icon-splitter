@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Taskbar Icon Splitter</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <h1>Taskbar Icon Splitter</h1>
+      <p id="connection" class="status">正在连接…</p>
+      <label class="toggle">
+        <input id="enabled" type="checkbox">
+        <span>自动按域名拆分</span>
+      </label>
+      <p id="count" class="muted"></p>
+      <button id="organize" type="button">立即整理</button>
+      <p id="message" class="message" role="status"></p>
+      <section class="timings" aria-labelledby="timings-title">
+        <h2 id="timings-title">五阶段耗时</h2>
+        <p class="timing-hint">最近 / 平均 / 最大 · 本机持久累计</p>
+        <dl>
+          <div>
+            <dt>1. 域名解析</dt>
+            <dd data-timing="domainResolution">暂无样本</dd>
+          </div>
+          <div>
+            <dt>2. 窗口整理</dt>
+            <dd data-timing="windowOrganization">暂无样本</dd>
+          </div>
+          <div>
+            <dt>3. HWND 关联</dt>
+            <dd data-timing="hwndCorrelation">暂无样本</dd>
+          </div>
+          <div>
+            <dt>4. AppUserModelID</dt>
+            <dd data-timing="appUserModelId">暂无样本</dd>
+          </div>
+          <div>
+            <dt>5. 图标处理</dt>
+            <dd data-timing="iconProcessing">暂无样本</dd>
+          </div>
+        </dl>
+      </section>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+dist/
+artifacts/
+node_modules/
+tmp/
+.nuget-offline/
+TestResults/
+**/bin/
+**/obj/
+*.user
+*.suo

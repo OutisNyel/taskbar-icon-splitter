@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Taskbar Icon Splitter",
+  "description": "按网站域名自动整理 Edge 标签页，并为每个网站窗口显示独立的 Windows 任务栏图标。",
+  "version": "0.1.0",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8kUZ2Io6Xpqtgo/3ZgjXipkpzxLeLHvX2P47KEdMf2mx6nu8jZIvCVxTvZUiMEw+dctHLDIaYGqkdLNHXYNG2x5ayREgvuHzLOvMDdhBGXSdkR+dtIiztovo7MrZ9VLmY/xTyr5yj1A6EGHRKm234M+bIUlKZEIuzYBaDXBiPaK3ZKPmT3CKWToOgKPormuwmow2mCFx4LQJC0V0kUdRTtdXrDi3d8mpoGE5CvmkawlsbPRLFa854E8Iy+5SGELULYt633hjjRH6Mg3eSR87cdFCq8C0oezp063CoX+C7l/8psQmKXuZl7hH7IUQiKy9QkUKq2abLp7HM5pkVj6zGQIDAQAB",
+  "permissions": [
+    "nativeMessaging",
+    "storage",
+    "tabs",
+    "windows"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Taskbar Icon Splitter",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    },
+    "default_popup": "popup.html"
+  }
+}

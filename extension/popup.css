@@ -1,0 +1,104 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-width: 350px;
+}
+
+main {
+  padding: 16px;
+}
+
+h1 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+h2 {
+  font-size: 13px;
+  margin: 0;
+}
+
+.status,
+.muted,
+.message {
+  font-size: 12px;
+  margin: 8px 0;
+}
+
+.status.connected {
+  color: #16833b;
+}
+
+.status.disconnected {
+  color: #b3261e;
+}
+
+.muted {
+  opacity: 0.72;
+}
+
+.toggle {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+button {
+  background: #0f6cbd;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.message {
+  min-height: 16px;
+}
+
+.timings {
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.timing-hint {
+  font-size: 11px;
+  margin: 4px 0 8px;
+  opacity: 0.65;
+}
+
+.timings dl {
+  font-size: 11px;
+  margin: 0;
+}
+
+.timings dl div {
+  align-items: baseline;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.timings dt,
+.timings dd {
+  margin: 0;
+}
+
+.timings dd {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
