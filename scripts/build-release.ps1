@@ -213,11 +213,27 @@ Rebuild with -StoreExtensionId after Partner Center assigns the store ID.
     $archive = [IO.Compression.ZipFile]::OpenRead($extensionZip)
     try {
         $entries = @($archive.Entries | ForEach-Object FullName)
-        if ($entries -notcontains 'manifest.json') {
+        $manifestEntry = $archive.GetEntry('manifest.json')
+        if (-not $manifestEntry) {
             throw 'Store ZIP does not contain manifest.json at its root.'
         }
         if ($entries | Where-Object { $_ -match '\.map$' }) {
             throw 'Store ZIP unexpectedly contains source maps.'
+        }
+
+        $reader = [IO.StreamReader]::new(
+            $manifestEntry.Open(),
+            [Text.Encoding]::UTF8,
+            $true
+        )
+        try {
+            $storeManifest = $reader.ReadToEnd() | ConvertFrom-Json
+        }
+        finally {
+            $reader.Dispose()
+        }
+        if ($storeManifest.PSObject.Properties.Name -contains 'key') {
+            throw 'Store ZIP manifest must not contain the key field.'
         }
     }
     finally {

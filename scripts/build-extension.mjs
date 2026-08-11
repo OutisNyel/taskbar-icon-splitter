@@ -48,6 +48,9 @@ await cp(path.join(source, "icons"), path.join(output, "icons"), {
 const manifest = JSON.parse(
   await readFile(path.join(source, "manifest.json"), "utf8")
 );
+if (storeBuild) {
+  delete manifest.key;
+}
 await writeFile(
   path.join(output, "manifest.json"),
   `${JSON.stringify(manifest, null, 2)}\n`,
